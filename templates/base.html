@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Resume Application{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white shadow-md">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">
+                <a href="{% url 'job_input' %}" class="hover:underline">Resume Application</a>
+            </h1>
+            <nav class="flex items-center space-x-4">
+                <a href="{% url 'job_input' %}" class="text-lg hover:underline">Job Input</a>
+                <a href="{% url 'dashboard' %}" class="text-lg hover:underline">Dashboard</a>
+                <a href="{% url 'logout' %}" class="text-lg hover:underline">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-8 px-6">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto text-center py-4">
+            <p class="text-sm">&copy; {{ current_year|default:2025 }} Resume Application. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

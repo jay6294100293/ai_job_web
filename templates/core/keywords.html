@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Extracted Keywords{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-md overflow-hidden p-8">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Extracted Keywords</h2>
+        <p class="text-center text-lg text-gray-600 mb-8">
+            These keywords are extracted from the job description. Use them effectively in your resume and application materials.
+        </p>
+        <ul class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {% for keyword in keywords %}
+            <li class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-center text-lg font-medium shadow-sm">
+                {{ keyword }}
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="mt-8 text-center">
+            <a href="{% url 'job_input' %}" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Back to Job Input
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

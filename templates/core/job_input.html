@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Job Input{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center min-h-screen bg-gray-50">
+    <div class="w-full max-w-4xl bg-white rounded-lg shadow-md overflow-hidden p-8">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Enter Job Information</h2>
+        <p class="text-center text-lg text-gray-600 mb-8">
+            Provide the job description and your resume to generate tailored application materials.
+        </p>
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_company_name" class="block text-lg font-medium text-gray-700">Company Name</label>
+                <input type="text" id="id_company_name" name="company_name" placeholder="Enter the company name" class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="id_job_description" class="block text-lg font-medium text-gray-700">Job Description</label>
+                <textarea id="id_job_description" name="job_description" placeholder="Paste the job description here" class="mt-2 block w-full h-32 p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"></textarea>
+            </div>
+            <div class="mb-4">
+                <label for="id_resume_file" class="block text-lg font-medium text-gray-700">Upload Resume (Optional)</label>
+                <input type="file" id="id_resume_file" name="resume_file" class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            </div>
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+                Submit Job Information
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
