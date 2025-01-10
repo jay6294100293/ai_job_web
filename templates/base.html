@@ -14,10 +14,15 @@
                 <a href="{% url 'job_input' %}" class="hover:underline">Resume Application</a>
             </h1>
             <nav class="flex items-center space-x-4">
+            {% if user.is_authenticated %}
                 <a href="{% url 'job_input' %}" class="text-lg hover:underline">Job Input</a>
                 <a href="{% url 'dashboard' %}" class="text-lg hover:underline">Dashboard</a>
                 <a href="{% url 'logout' %}" class="text-lg hover:underline">Logout</a>
-            </nav>
+            {% else %}
+                <a href="{% url 'login' %}" class="text-lg hover:underline">Login</a>
+                <a href="{% url 'register' %}" class="text-lg hover:underline">Register</a>
+            {% endif %}
+        </nav>
         </div>
     </header>
 

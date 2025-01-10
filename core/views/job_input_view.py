@@ -11,6 +11,11 @@ def job_input(request):
         if form.is_valid():
             job_input = form.save(commit=False)
             job_input.user = request.user
+
+            # Choose either the uploaded file or the pasted text
+            if not job_input.resume_file and 'resume_text' in form.cleaned_data:
+                job_input.resume_text = form.cleaned_data['resume_text']
+
             job_input.save()
             return redirect('extract_keywords', job_input_id=job_input.id)
     else:

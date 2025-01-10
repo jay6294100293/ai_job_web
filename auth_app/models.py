@@ -9,8 +9,8 @@ from django.db import models
 class CustomUser(AbstractUser):
     first_name = models.CharField(max_length=150, blank=True, null=True)
     last_name = models.CharField(max_length=150, blank=True, null=True)
-    chatgpt_api_key = models.CharField(max_length=100, blank=True, null=True)
-    gemini_api_key = models.CharField(max_length=100, blank=True, null=True)
+    chatgpt_api_key = models.CharField(max_length=255, blank=True, null=True)
+    gemini_api_key = models.CharField(max_length=255, blank=True, null=True)
     preferred_api = models.CharField(
         max_length=10,
         choices=[('openai', 'OpenAI'), ('gemini', 'Gemini')],

@@ -5,71 +5,61 @@
 {% block content %}
 <div class="flex items-center justify-center min-h-screen bg-gray-50">
     <div class="w-full max-w-4xl bg-white rounded-lg shadow-md overflow-hidden p-8">
+        <!-- Heading -->
         <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Update Your API Keys</h2>
         <p class="text-center text-lg text-gray-600 mb-8">
-            To use this application, you'll need API keys for <strong>OpenAI ChatGPT</strong> and <strong>Gemini</strong>. Follow the instructions below to obtain your keys at the lowest cost.
+            Enter your API keys and set your preferred API below.
         </p>
-
-        <!-- Instructions Section -->
-        <div class="bg-gray-50 p-6 rounded-lg mb-8 shadow">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">How to Get API Keys</h3>
-            <ol class="list-decimal list-inside text-gray-700 space-y-6">
-                <li>
-                    <strong>OpenAI ChatGPT API Key:</strong>
-                    <ul class="list-disc list-inside ml-6 space-y-2">
-                        <li>
-                            Visit the <a href="https://platform.openai.com/signup" target="_blank" class="text-blue-600 hover:underline">OpenAI Signup Page</a> to create an account or log in.
-                        </li>
-                        <li>
-                            Navigate to the <a href="https://platform.openai.com/account/api-keys" target="_blank" class="text-blue-600 hover:underline">API Keys Section</a>.
-                        </li>
-                        <li>
-                            Generate a new API key and copy it.
-                        </li>
-                        <li>
-                            **Cost Recommendation:** Use the <strong>gpt-3.5-turbo</strong> model, which costs only $0.002 per 1,000 tokens. Avoid <strong>gpt-4</strong> unless necessary, as it is significantly more expensive.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <strong>Gemini API Key:</strong>
-                    <ul class="list-disc list-inside ml-6 space-y-2">
-                        <li>
-                            Visit the <a href="https://gemini.example.com/signup" target="_blank" class="text-blue-600 hover:underline">Gemini Signup Page</a> (replace with actual link).
-                        </li>
-                        <li>
-                            Sign up for a free or low-cost plan. Many platforms offer free trials for small-scale use.
-                        </li>
-                        <li>
-                            Generate an API key after setting up your account.
-                        </li>
-                        <li>
-                            **Cost Recommendation:** Choose the plan that offers pay-per-request pricing starting at $0.001 per request.
-                        </li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
 
         <!-- Form Section -->
         <form method="post" class="space-y-6">
             {% csrf_token %}
             <div>
-                <label for="api_choice" class="block text-lg font-medium text-gray-700">Select Preferred API</label>
-                <select id="api_choice" name="api_choice" class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    <option value="openai" {% if preferred_api == 'openai' %}selected{% endif %}>OpenAI</option>
-                    <option value="gemini" {% if preferred_api == 'gemini' %}selected{% endif %}>Gemini</option>
-                </select>
-            </div>
-            <div>
                 <label for="id_chatgpt_api_key" class="block text-lg font-medium text-gray-700">ChatGPT API Key</label>
-                <input type="text" id="id_chatgpt_api_key" name="chatgpt_api_key" value="{{ chatgpt_api_key }}" placeholder="Enter your ChatGPT API key" class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <input
+                    type="text"
+                    id="id_chatgpt_api_key"
+                    name="chatgpt_api_key"
+                    value="{{ form.chatgpt_api_key.value|default:'' }}"
+                    placeholder="Enter your ChatGPT API key"
+                    class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                >
+                {% if form.chatgpt_api_key.errors %}
+                <p class="text-red-500 text-sm mt-2">{{ form.chatgpt_api_key.errors|join:" " }}</p>
+                {% endif %}
             </div>
             <div>
                 <label for="id_gemini_api_key" class="block text-lg font-medium text-gray-700">Gemini API Key</label>
-                <input type="text" id="id_gemini_api_key" name="gemini_api_key" value="{{ gemini_api_key }}" placeholder="Enter your Gemini API key" class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                <input
+                    type="text"
+                    id="id_gemini_api_key"
+                    name="gemini_api_key"
+                    value="{{ form.gemini_api_key.value|default:'' }}"
+                    placeholder="Enter your Gemini API key"
+                    class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                >
+                {% if form.gemini_api_key.errors %}
+                <p class="text-red-500 text-sm mt-2">{{ form.gemini_api_key.errors|join:" " }}</p>
+                {% endif %}
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
+            <div>
+                <label for="id_preferred_api" class="block text-lg font-medium text-gray-700">Preferred API</label>
+                <select
+                    id="id_preferred_api"
+                    name="preferred_api"
+                    class="mt-2 block w-full p-3 border rounded-lg focus:ring-blue-500 focus:border-blue-500"
+                >
+                    <option value="openai" {% if form.preferred_api.value == "openai" %}selected{% endif %}>OpenAI</option>
+                    <option value="gemini" {% if form.preferred_api.value == "gemini" %}selected{% endif %}>Gemini</option>
+                </select>
+                {% if form.preferred_api.errors %}
+                <p class="text-red-500 text-sm mt-2">{{ form.preferred_api.errors|join:" " }}</p>
+                {% endif %}
+            </div>
+            <button
+                type="submit"
+                class="w-full bg-blue-600 text-white py-3 rounded-lg text-lg font-medium hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
+            >
                 Save API Keys
             </button>
         </form>
